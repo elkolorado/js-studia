@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Slider</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <main style="width: 50%; margin-inline: auto;">
+
+        <h1>Image Slider slideIn 1s time</h1>
+
+        <div class="slider" data-slide-animation="slideIn" data-slide-time="1000">
+            <div role="list">
+                <div class="slide">
+                    <img src="https://placehold.co/600x400?text=Hello+World+1" alt="">
+                </div>
+                <div class="slide">
+                    <img src="https://placehold.co/600x400?text=Hello+World+2" alt="">
+                </div>
+                <div class="slide">
+                    <img src="https://placehold.co/600x400?text=Hello+World+3" alt="">
+                </div>
+            </div>
+            <div class="navigation">
+                <div class="dots"></div>
+                <button class="prev"></button>
+                <button class="next"></button>
+            </div>
+        </div>
+
+        <h1>Image Slider slideOut 1s time</h1>
+
+        <div class="slider" data-slide-animation="slideOut" data-slide-time="1000">
+            <div role="list">
+                <div class="slide">
+                    <img src="https://placehold.co/600x400?text=Hello+World+1" alt="">
+                </div>
+                <div class="slide">
+                    <img src="https://placehold.co/600x400?text=Hello+World+2" alt="">
+                </div>
+                <div class="slide">
+                    <img src="https://placehold.co/600x400?text=Hello+World+3" alt="">
+                </div>
+            </div>
+            <div class="navigation">
+                <div class="dots"></div>
+                <button class="prev"></button>
+                <button class="next"></button>
+            </div>
+        </div>
+
+        <h1>Image Slider opacity 3s default time</h1>
+        <div class="slider" data-slide-animation="opacity">
+            <div role="list">
+                <div class="slide">
+                    <img src="https://placehold.co/600x400?text=Hello+World+1" alt="">
+                </div>
+                <div class="slide">
+                    <img src="https://placehold.co/600x400?text=Hello+World+2" alt="">
+                </div>
+                <div class="slide">
+                    <img src="https://placehold.co/600x400?text=Hello+World+3" alt="">
+                </div>
+            </div>
+            <div class="navigation">
+                <div class="dots"></div>
+                <button class="prev"></button>
+                <button class="next"></button>
+            </div>
+        </div>
+
+        <h1>Image Slider videos</h1>
+        <div class="slider" data-slide-animation="slideIn">
+            <div role="list">
+                <div class="slide">
+                    <iframe width="100%" height="100%" src="https://www.youtube.com/embed/tgbNymZ7vqY">
+                    </iframe>
+                </div>
+                <div class="slide">
+                    <iframe width="100%" height="100%"
+                        src="https://www.youtube.com/embed/B7UmUX68KtE?si=_g8hWYwPql7z6hy_">
+                    </iframe>
+                </div>
+            </div>
+            <div class="navigation">
+                <div class="dots"></div>
+                <button class="prev"></button>
+                <button class="next"></button>
+            </div>
+
+
+    </main>
+
+
+    <div class="lightbox">
+        <img class="lightbox-img">
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
