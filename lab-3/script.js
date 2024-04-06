@@ -74,6 +74,23 @@ function playTrack(id = 0){
     })
 }
 
+function addTrack(){
+    timeline.push({
+        id: timeline.length,
+        recordingStart: 0,
+        sounds: {
+        ...Object.fromEntries(Object.entries(sounds).map(x => [x[0], []]))
+        }
+    })
+}
+
+function deleteTrack(id){
+    let track = timeline.find(t => t.id == id)
+    if(track){
+        // confirm("delete track?") 
+    } 
+}
+
 function renderTrack(id = 0){
 }
 
