@@ -1,0 +1,33 @@
+.card {
+    display: block;
+
+    & .card-header {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    & .card-footer {
+        display: flex;
+    }
+
+    & textarea, input {
+        background: none;
+        border: none;
+        width: 100%;
+    }
+
+
+
+    &.bg-red {
+        background: rgb(255, 136, 136);
+        color: black;
+    }
+
+    &.bg-yellow {
+        background: rgb(255, 255, 177);
+    }
+
+    &.bg-green {
+        background: rgb(170, 255, 170);
+    }
+}
