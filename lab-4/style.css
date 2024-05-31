@@ -1,6 +1,7 @@
 .card {
     display: block;
-
+    width: 300px;
+    padding: 1rem;
     & .card-header {
         display: flex;
         justify-content: space-between;
@@ -16,11 +17,19 @@
         width: 100%;
     }
 
+    & textarea {
+        resize:vertical;
+
+    }
+
 
 
     &.bg-red {
         background: rgb(255, 136, 136);
         color: black;
+        & .card-header {
+            background: hsl(0, 100%, 90%);
+        }
     }
 
     &.bg-yellow {
@@ -30,4 +39,21 @@
     &.bg-green {
         background: rgb(170, 255, 170);
     }
+
+    /* make it dragable */
+    &.dragable {
+        cursor: grab;
+    }
+
+    /* make it draggable */
+    &.dragging {
+        cursor: grabbing;
+    }
+
+}
+
+#cards {
+    display: flex;
+    gap: 3rem;
+    flex-wrap: wrap;
 }
