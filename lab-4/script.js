@@ -336,6 +336,7 @@ function saveCard(i) {
         tags: document.querySelector(`.card[data-id='${i}'] .card-tags`).value,
         notificationDate: document.querySelector(`.card[data-id='${i}'] .card-notification-date`).value
     }
+    console.log(cards)
     saveCardsData(cards)
 
 }

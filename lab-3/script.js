@@ -26,7 +26,7 @@ const soundKeybinds = {
 let isRecording = false;
 let currentTrackRecording = null;
 let timeline = [];
-let barsAmount = 8;
+let barsAmount = 16;
 let bpm = 120;
 
 

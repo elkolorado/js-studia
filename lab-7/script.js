@@ -15,20 +15,20 @@ class Canvas {
         this.canvas.height = 900;
         this.mouseX = 0;
         this.mouseY = 0;
-        
+
         // Gravity
         this.gravityForce = 2;
         this.gravityRadius = 100;
-        
+
         this.gain = 0.001;
-        
+
         this.canvas.addEventListener('mousemove', (event) => {
             this.mouseX = event.clientX;
             this.mouseY = event.clientY;
-            });
-            
+        });
+
         this.createDots(50);
-        
+
     }
 
 
@@ -46,7 +46,7 @@ class Canvas {
         this.ctx.fillStyle = gradient;
         this.ctx.fill();
 
-        
+
         this.ctx.stroke();
     }
 
@@ -64,7 +64,7 @@ class Canvas {
     }
 
     drawDot(dot) {
-        if(dot.radius <= 0) {
+        if (dot.radius <= 0) {
             this.removeDot(dot);
             return;
         }
@@ -112,7 +112,7 @@ class Canvas {
                         // otherDot.radius += this.gain * 2;
                     }
 
-                    if(otherDot.radius <= 10) {
+                    if (otherDot.radius <= 10) {
                         this.removeDot(otherDot);
                     }
 
@@ -171,8 +171,8 @@ class Canvas {
 
     addNewDot() {
         this.dots.push(new Dot(
-            Math.random() * this.canvas.width,
-            Math.random() * this.canvas.height,
+            Math.min(Math.random() * this.canvas.width, this.canvas.width - 60),
+            Math.min(Math.random() * this.canvas.height, this.canvas.height - 60),
             30,
             //random color for each dot
             `rgb(${Math.random() * 255}, ${Math.random() * 255}, ${Math.random() * 255})`
@@ -232,9 +232,9 @@ class Canvas {
             this.gravityForce = gravityForce.value;
         });
         document.body.appendChild(gravityForce);
-    
+
     }
-    
+
 
 }
 
@@ -247,14 +247,14 @@ class Dot {
         this.radius = Math.random() * 25 + 5;
         this.color = color;
         this.seed = Math.random() * Math.PI * 2;
-        this.newtons = 0 ;
+        this.newtons = 0;
         this.velocity = 0;
         this.mass = 1;
     }
 
     move() {
         let speed = 100 / (this.radius * this.mass);
-        if(speed > 1) {
+        if (speed > 1) {
             speed = 1;
         }
         let directionX = Math.cos(this.seed);
@@ -264,17 +264,19 @@ class Dot {
         this.x += velocityX;
         this.y += velocityY;
 
+
+        if (this.x -  this.radius + 1< 0 || this.x + 2 * this.radius + 1 > canvas.canvas.width) {
+            // if (this.x + this.velocityX > canvas.canvas.width - this.radius || this.x + this.velocityX < this.radius) {
+            this.seed = Math.random() * Math.PI * 2;
+        }
+        if (this.y -  this.radius + 1< 0 || this.y + 2 * this.radius + 1 > canvas.canvas.height) {
+            // if (this.y + this.velocityY > canvas.canvas.height - this.radius || this.y + this.velocityY < this.radius) {
+
+            this.seed = Math.random() * Math.PI * 2;
+        }
         this.velocity = Math.sqrt(velocityX ** 2 + velocityY ** 2);
         this.mass = this.radius;
         this.newtons = this.x * this.velocity + this.y * this.mass;
-
-        // Bounce off the edges of the canvas, making sure the x,y coordinates are html element coordinates and not canvas coordinates
-        if (this.x - this.radius < 0 || this.x + this.radius > canvas.canvas.width) {
-            this.seed = Math.random() * Math.PI * 2;
-        }
-        if (this.y - this.radius < 0 || this.y + this.radius > canvas.canvas.height) {
-            this.seed = Math.random() * Math.PI * 2;
-        }
     }
 }
 
