@@ -4,29 +4,30 @@ class Canvas {
     constructor() {
         this.canvas = document.createElement('canvas');
         this.ctx = this.canvas.getContext('2d');
-        this.distance = 100;
+        this.distance = 200;
         this.dots = [];
         document.body.appendChild(this.canvas);
         this.dotsControl();
         this.distanceControl();
         this.gravityControl();
-        this.createDots(50);
         this.canvas.addEventListener('click', (event) => this.handleClick(event));
-
+        this.canvas.width = 1600;
+        this.canvas.height = 900;
         this.mouseX = 0;
         this.mouseY = 0;
-
+        
         // Gravity
         this.gravityForce = 2;
         this.gravityRadius = 100;
-
-        this.gain = 0.1;
+        
+        this.gain = 0.001;
         
         this.canvas.addEventListener('mousemove', (event) => {
             this.mouseX = event.clientX;
             this.mouseY = event.clientY;
-        });
-
+            });
+            
+        this.createDots(50);
         
     }
 
@@ -95,26 +96,31 @@ class Canvas {
                 const otherDot = dots[i];
                 const dotDistance = Math.sqrt((dot.x - otherDot.x) ** 2 + (dot.y - otherDot.y) ** 2);
 
-                // Draw line if distance is 50px
+                // Draw line if distance is less than the specified distance plus the radius of the dot
                 if (dotDistance <= this.distance) {
                     this.ctx.beginPath();
                     this.ctx.moveTo(dot.x + dot.radius, dot.y + dot.radius);
                     this.ctx.lineTo(otherDot.x + otherDot.radius, otherDot.y + otherDot.radius);
                     this.ctx.strokeStyle = 'blue';
                     this.ctx.stroke();
-                    // the dot with larger radius graduatly reduces the other dot's radius
+                    // the dot with larger radius gradually reduces the other dot's radius
                     if (dot.radius > otherDot.radius) {
                         otherDot.radius -= this.gain;
-                        dot.radius += this.gain;
+                        dot.radius += this.gain / 5;
                     } else {
-                        dot.radius -= this.gain;
-                        otherDot.radius += this.gain;
+                        dot.radius -= this.gain / 2;
+                        // otherDot.radius += this.gain * 2;
+                    }
+
+                    if(otherDot.radius <= 10) {
+                        this.removeDot(otherDot);
                     }
 
                 }
 
             }
         }
+
 
     }
 
@@ -127,6 +133,7 @@ class Canvas {
         distance.value = this.distance;
         distance.addEventListener('input', () => {
             this.distance = distance.value;
+            console.log(this.distance, 'distance');
         });
         document.body.appendChild(distance);
     }
@@ -136,7 +143,7 @@ class Canvas {
         dots.type = 'number';
         dots.min = 0;
         dots.max = 1000;
-        dots.value = 50;
+        dots.value = 12;
         dots.addEventListener('input', () => {
             const amount = dots.value;
             const currentAmount = this.dots.length;
@@ -156,13 +163,17 @@ class Canvas {
         for (let i = 0; i < amount; i++) {
             this.addNewDot();
         }
+
+        setInterval(() => {
+            this.addNewDot();
+        }, 1000);
     }
 
     addNewDot() {
         this.dots.push(new Dot(
             Math.random() * this.canvas.width,
             Math.random() * this.canvas.height,
-            5,
+            30,
             //random color for each dot
             `rgb(${Math.random() * 255}, ${Math.random() * 255}, ${Math.random() * 255})`
         ));
@@ -170,7 +181,6 @@ class Canvas {
 
     removeDot(dot) {
         this.dots = this.dots.filter(d => d !== dot);
-
         //add two new dots
         // this.addNewDot();
         // this.addNewDot();
@@ -192,7 +202,6 @@ class Canvas {
     }
 
     applyGravity(cursorX, cursorY) {
-        console.log(cursorX, this.canvas.width, cursorY, this.canvas.height)
         //if cursor is not on canvas, return
         if (cursorX < 0 || cursorX > this.canvas.width || cursorY < 0 || cursorY > this.canvas.height) {
             return;
@@ -244,7 +253,10 @@ class Dot {
     }
 
     move() {
-        let speed = 1 * this.radius / 100; // Adjust the speed as needed
+        let speed = 100 / (this.radius * this.mass);
+        if(speed > 1) {
+            speed = 1;
+        }
         let directionX = Math.cos(this.seed);
         let directionY = Math.sin(this.seed);
         let velocityX = speed * directionX;
@@ -255,13 +267,12 @@ class Dot {
         this.velocity = Math.sqrt(velocityX ** 2 + velocityY ** 2);
         this.mass = this.radius;
         this.newtons = this.x * this.velocity + this.y * this.mass;
-        console.log(this.newtons);
 
         // Bounce off the edges of the canvas, making sure the x,y coordinates are html element coordinates and not canvas coordinates
-        if (this.x < 0 || this.x > canvas.canvas.width) {
+        if (this.x - this.radius < 0 || this.x + this.radius > canvas.canvas.width) {
             this.seed = Math.random() * Math.PI * 2;
         }
-        if (this.y < 0 || this.y > canvas.canvas.height) {
+        if (this.y - this.radius < 0 || this.y + this.radius > canvas.canvas.height) {
             this.seed = Math.random() * Math.PI * 2;
         }
     }
@@ -270,7 +281,7 @@ class Dot {
 // draw canvas and dot
 
 const canvas = new Canvas();
-canvas.setDimensions(800, 600);
+canvas.setDimensions(1600, 900);
 canvas.setStyles({
     border: '1px solid black'
 });
