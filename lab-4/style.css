@@ -9,6 +9,20 @@
 
     & .card-footer {
         display: flex;
+        justify-content: space-between;
+        align-items: end;
+        margin-bottom: 0;
+        & .cardDate {
+        margin-bottom: 0;
+
+        }
+
+        & .card-tags {
+            width: 200px;
+            text-align: right;
+        }
+
+
     }
 
     & textarea, input {
@@ -22,15 +36,12 @@
 
     }
 
-
-
-    &.bg-red {
-        background: rgb(255, 136, 136);
-        color: black;
-        & .card-header {
-            background: hsl(0, 100%, 90%);
-        }
+    .card-header-text {
+        font-weight: bold;
     }
+
+
+
 
     &.bg-yellow {
         background: rgb(255, 255, 177);
@@ -50,10 +61,54 @@
         cursor: grabbing;
     }
 
+    & .card-header-options {
+        position: absolute;
+        top: -33px;
+        right: -10px;
+        display: flex;
+        cursor: pointer;
+    }
+
+    & .card-header-options button {
+        /* background-color: inherit; */
+        margin-inline: 5px;
+    }
+
+    & .card-header-color {
+        width: 50px;
+        /* height: 40px; */
+        background: buttonface;
+        border: 1px solid black;
+    }
+
+    & .card-notification-date {
+        background: buttonface;
+        border: 1px solid black;
+    }
+
+
+
+
+}
+
+.d-none {
+    display: none;
+
 }
 
 #cards {
     display: flex;
     gap: 3rem;
     flex-wrap: wrap;
+
+    &.cards-grid {
+        margin-top: 5rem;
+        & .card {
+            position: relative !important;
+            top: unset !important;
+            left: unset !important;
+
+        }
+    }
+    
 }
